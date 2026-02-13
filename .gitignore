@@ -1,0 +1,15 @@
+# Entorno Backend
+backend/.env
+backend/.env.local
+
+# Entorno Frontend
+frontend/.env
+frontend/.env.local
+
+# Node modules
+backend/node_modules/
+frontend/node_modules/
+
+# Build directories
+backend/dist/
+frontend/dist/

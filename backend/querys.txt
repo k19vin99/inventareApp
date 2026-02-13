@@ -1,0 +1,90 @@
+Query´s BBDD:
+
+Creación tabla Items para pruebas:
+
+CREATE TABLE IF NOT EXISTS items (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  qty INTEGER DEFAULT 0
+);
+INSERT INTO items (name, qty) VALUES ('Ejemplo', 10) ON CONFLICT DO NOTHING;
+
+Select * from items;
+
+----------------------------------------------------------------------------------
+
+-- (Opcional) Valida RUT con formato básico: 7-8 dígitos + guión + dígito o K
+-- Nota: El formato exacto puede variar. Ajusta el regex si lo usas con puntos, etc.
+
+CREATE TABLE IF NOT EXISTS users (
+  rut              VARCHAR(12) PRIMARY KEY,                                 -- Ej: 12345678-9
+  email            VARCHAR(320) NOT NULL UNIQUE,                             -- único y en minúsculas (aplícalo desde app)
+  password_hash    TEXT NOT NULL,                                            -- bcrypt
+  first_name       VARCHAR(100) NOT NULL,
+  middle_name      VARCHAR(100),                                             -- opcional
+  last_name        VARCHAR(100) NOT NULL,                                    -- primer apellido
+  second_last_name VARCHAR(100),                                             -- segundo apellido
+  birth_date       DATE,
+  address          TEXT,
+  gender           VARCHAR(10) CHECK (gender IN ('female','male')),          -- femenino/masculino en inglés
+  position         VARCHAR(100),                                             -- cargo
+  hire_date        DATE,                                                     -- fecha de ingreso
+  created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  CONSTRAINT users_rut_format_chk CHECK (rut ~ '^[0-9]{7,8}-[0-9kK]$')
+);
+
+select * from users;
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+
+
+-- Inserta (o actualiza si ya existe por RUT) al usuario admin
+INSERT INTO users (
+  rut,
+  email,
+  password_hash,
+  first_name,
+  middle_name,
+  last_name,
+  second_last_name,
+  birth_date,
+  address,
+  gender,
+  position,
+  hire_date
+)
+VALUES (
+  '12345678-9',                                  -- rut (respetando tu CHECK ^[0-9]{7,8}-[0-9kK]$ )
+  LOWER('admin@inventareapp.cl'),                -- email (en minúsculas)
+  crypt('Inventare@2026', gen_salt('bf', 10)),   -- password_hash (bcrypt)
+  'Admin',                                       -- first_name (primer nombre)
+  NULL,                                          -- middle_name (segundo nombre)
+  'User',                                        -- last_name (primer apellido)
+  NULL,                                          -- second_last_name (segundo apellido)
+  '1990-01-01',                                  -- birth_date
+  'Santiago, CL',                                -- address
+  'male',                                        -- gender ('male' | 'female')
+  'Administrator',                               -- position (cargo)
+  '2024-01-01'                                   -- hire_date (fecha de ingreso)
+)
+ON CONFLICT (rut) DO UPDATE SET
+  email            = EXCLUDED.email,
+  password_hash    = EXCLUDED.password_hash,
+  first_name       = EXCLUDED.first_name,
+  middle_name      = EXCLUDED.middle_name,
+  last_name        = EXCLUDED.last_name,
+  second_last_name = EXCLUDED.second_last_name,
+  birth_date       = EXCLUDED.birth_date,
+  address          = EXCLUDED.address,
+  gender           = EXCLUDED.gender,
+  position         = EXCLUDED.position,
+  hire_date        = EXCLUDED.hire_date;
+
+
+
