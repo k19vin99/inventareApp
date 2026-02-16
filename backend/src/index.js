@@ -9,9 +9,14 @@ app.use(express.json());
 // Rutas
 const itemsRouter = require('./items.routes');
 const authRouter = require('./auth.routes');
+const usersRouter = require('./users.routes');
+const { requireAuth } = require('./middleware/auth');
 
 app.use('/api', itemsRouter);
 app.use('/api', authRouter);
+
+// 🔒 Proteger el listado de usuarios con JWT
+app.use('/api', requireAuth, usersRouter);
 
 // Healthcheck
 app.get('/api/health', (req, res) => {

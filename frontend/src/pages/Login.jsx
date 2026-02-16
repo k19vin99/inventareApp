@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../lib/api';
 
 export default function Login() {
@@ -8,6 +8,8 @@ export default function Login() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/home'; // si venía de /home u otra ruta protegida
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -16,10 +18,9 @@ export default function Login() {
     try {
       const { data } = await api.post('/auth/login', { email, password });
       localStorage.setItem('token', data.token);
-      // Opcional: también guardar usuario
       localStorage.setItem('user', JSON.stringify(data.user));
-      // Redirigir al inicio (landing) o a tu dashboard
-      navigate('/');
+      // Redirige al Home (o a la ruta de origen)
+      navigate(from, { replace: true });
     } catch (err) {
       const msg = err?.response?.data?.error || 'Error al iniciar sesión';
       setError(msg);

@@ -1,12 +1,15 @@
+/* ===== Base / Variables ===== */
 :root{
   --bg: #ffffff;
   --text: #111111;
-  --muted: #747474;
+  --muted: #666666;
   --accent: #f7c500; /* amarillo */
+  --accent-weak: #fff7cc;
   --border: #eaeaea;
 }
 
 * { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
   margin: 0;
   background: var(--bg);
@@ -14,26 +17,38 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
 }
 
-/* Header */
+/* ===== Header ===== */
 .header {
   position: sticky;
   top: 0;
   z-index: 10;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
   padding: 14px 20px;
   border-bottom: 1px solid var(--border);
   background: #fff;
 }
-.brand .brand-link {
+.brand .brand-link, .brand {
   font-weight: 800;
   letter-spacing: .5px;
   color: var(--text);
   text-decoration: none;
 }
+.nav {
+  display: none;
+  gap: 14px;
+}
+.nav-link {
+  color: var(--text);
+  text-decoration: none;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+.nav-link:hover { background: var(--accent-weak); }
 
-/* Botones */
+/* ===== Buttons ===== */
 .btn {
   display: inline-block;
   padding: 9px 16px;
@@ -48,6 +63,196 @@ body {
 .btn:hover { filter: brightness(0.95); }
 .btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--accent); }
+
+/* ===== Layout ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.section {
+  padding: 56px 0;
+}
+.section.alt {
+  background: #fafafa;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.section h2 {
+  margin: 0 0 10px;
+  font-size: clamp(22px, 4vw, 32px);
+}
+.section-sub {
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+
+/* ===== Hero ===== */
+.hero-landing {
+  padding-top: 36px;
+}
+.hero-grid {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  grid-template-columns: 1.1fr .9fr;
+}
+.hero-title {
+  font-size: clamp(28px, 5.4vw, 48px);
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+.highlight {
+  background: linear-gradient(180deg, transparent 60%, var(--accent-weak) 60%);
+  padding: 0 4px;
+}
+.hero-sub {
+  color: var(--muted);
+  font-size: 18px;
+  margin: 0 0 18px;
+}
+.cta { display: flex; gap: 10px; margin-bottom: 12px; }
+.badges { display: flex; gap: 10px; flex-wrap: wrap; }
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--accent-weak);
+  border: 1px solid var(--accent);
+  font-weight: 600;
+  font-size: 12px;
+}
+.hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+/* ===== Grid / Cards ===== */
+.grid-3 {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.card {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+}
+.feature-card h3 { margin: 8px 0 6px; }
+.feature-icon {
+  font-size: 28px;
+  display: inline-flex;
+  width: 44px; height: 44px;
+  align-items: center; justify-content: center;
+  border-radius: 10px;
+  background: var(--accent-weak);
+  border: 1px solid var(--accent);
+}
+.case-card { text-align: left; }
+.case-logo {
+  width: 120px; height: 40px; object-fit: contain;
+  filter: grayscale(100%);
+  margin-bottom: 8px;
+}
+
+/* ===== About ===== */
+.about-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.list { padding-left: 18px; }
+.list li { margin: 6px 0; }
+
+/* ===== Contact ===== */
+.contact-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+}
+.contact-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.form {
+  display: grid;
+  gap: 12px;
+}
+.form label { display: grid; gap: 6px; font-size: 14px; }
+.form input, .form textarea {
+  padding: 11px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 16px;
+  outline: none;
+}
+.form input:focus, .form textarea:focus { border-color: var(--accent); }
+
+/* ===== Accordion ===== */
+.accordion { display: grid; gap: 8px; }
+.accordion-item { border: 1px solid var(--border); border-radius: 10px; background: #fff; }
+.accordion-header {
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: none;
+  outline: none;
+  padding: 12px 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease;
+  padding: 0 14px;
+}
+.accordion-panel.open { padding: 8px 14px 14px; max-height: 400px; }
+.chev { transition: transform .2s ease; }
+.chev.open { transform: rotate(180deg); }
+
+/* ===== Footer ===== */
+.footer {
+  padding: 30px 0;
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+.footer-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+}
+.footer-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.footer a { color: var(--text); text-decoration: none; }
+.muted { color: var(--muted); }
+
+/* ===== Responsive ===== */
+@media (max-width: 960px) {
+  .nav { display: none; } /* podrías implementar un menú hamburguesa luego */
+  .hero-grid { grid-template-columns: 1fr; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .grid-3 { grid-template-columns: 1fr; }
+  .header { grid-template-columns: 1fr auto; }
+}
 
 /* Landing */
 .landing {
@@ -110,3 +315,24 @@ input:focus { border-color: var(--accent); }
 
 .hint { color: var(--muted); font-size: 13px; margin-top: 10px; }
 code { background: #fff7cc; padding: 1px 6px; border-radius: 6px; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th, .table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table thead th {
+  background: #fff7cc; /* detalle amarillo suave */
+}
