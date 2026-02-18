@@ -336,3 +336,25 @@ code { background: #fff7cc; padding: 1px 6px; border-radius: 6px; }
 .table thead th {
   background: #fff7cc; /* detalle amarillo suave */
 }
+.dropdown { position: relative; }
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 220px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  z-index: 20;
+  display: grid;
+  gap: 4px;
+}
+.dropdown-menu a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.dropdown-menu a:hover { background: var(--accent-weak); }

@@ -62,10 +62,6 @@ export default function Login() {
           {busy ? 'Ingresando…' : 'Ingresar'}
         </button>
       </form>
-
-      <p className="hint">
-        API: <code>{import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}</code>
-      </p>
     </main>
   );
 }

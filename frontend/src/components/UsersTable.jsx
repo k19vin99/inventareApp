@@ -1,17 +1,13 @@
 function fmtDate(d) {
   if (!d) return '';
-  try {
-    return new Date(d).toLocaleDateString();
-  } catch {
-    return String(d);
-  }
+  try { return new Date(d).toLocaleDateString(); }
+  catch { return String(d); }
 }
 
 export default function UsersTable({ users = [] }) {
   if (!users.length) {
     return <div className="hint">No hay usuarios para mostrar.</div>;
   }
-
   return (
     <div style={{ overflowX: 'auto' }}>
       <table className="table">

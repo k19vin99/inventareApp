@@ -1,0 +1,73 @@
+/* Users page-only styles (ancho amplio, sin scroll horizontal y alto rendimiento) */
+
+.users-page {
+  /* MÁS ANCHO: que crezca hasta 1400px */
+  max-width: 1400px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* Acciones arriba de la tabla */
+.users-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+
+/* Envolver la tabla, pero sin forzar scroll horizontal */
+.users-table-wrap {
+  overflow: visible; /* evitamos overflow-x: auto; para que no aparezca scrollbar */
+}
+
+/* Tabla base (reutiliza la .table global para estilos comunes) */
+.users-page .table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+/* Encabezado "pegajoso" para tablas largas (opcional) */
+.users-page .table thead th {
+  background: #fff7cc;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Celdas más compactas y que permitan múltiples líneas de texto */
+.users-page .table th,
+.users-page .table td {
+  padding: 8px 10px;        /* más compacto que 10px 12px */
+  font-size: 14px;
+  line-height: 1.25;
+  text-align: left;
+  vertical-align: top;
+  white-space: normal;       /* permitir múltiples líneas */
+  word-break: break-word;    /* romper palabras largas (emails, etc.) */
+}
+
+/* Alinear la columna de acciones y permitir wrap */
+.users-page .cell-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Zebra rows sutil */
+.users-page .table tbody tr:nth-child(even) td {
+  background: #fdfdfd;
+}
+
+/* En pantallas medianas y móviles, compactar más aún */
+@media (max-width: 1200px) {
+  .users-page { max-width: 100%; }
+}
+@media (max-width: 960px) {
+  .users-page .table th, .users-page .table td { font-size: 13px; padding: 7px 8px; }
+}
+@media (max-width: 640px) {
+  .users-page .table th, .users-page .table td { font-size: 12px; padding: 6px 7px; }
+}

@@ -1,0 +1,82 @@
+/* Companies page-only styles */
+
+.companies-page {
+  max-width: 1200px; /* un poco más ancho que 1100 */
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.companies-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+
+.companies-search {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.companies-table-wrap {
+  /* sin overflow-x para que no aparezca scroll horizontal */
+  overflow: hidden;
+}
+
+/* Tabla compacta */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.table th, .table td {
+  padding: 8px 10px;     /* más compacto que 10px 12px */
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-size: 14px;       /* tipografía más pequeña */
+  line-height: 1.25;
+  vertical-align: top;
+  word-break: break-word; /* QUEBRAR texto largo */
+  white-space: normal;     /* permitir múltiples líneas */
+}
+
+/* Header sticky opcional (se pega al top del contenedor al scrollear vertical) */
+.table thead th {
+  background: #fff7cc;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Zebra rows sutil */
+.table tbody tr:nth-child(odd) td {
+  background: #fff;
+}
+.table tbody tr:nth-child(even) td {
+  background: #fdfdfd;
+}
+
+/* Botonera de acciones dentro de la celda */
+.table .cell-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Inputs de búsqueda adaptables */
+.companies-search input[type="search"] {
+  flex: 1 1 320px;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .companies-page { max-width: 100%; }
+  .table th, .table td { font-size: 13px; padding: 7px 8px; }
+}
+@media (max-width: 640px) {
+  .table th, .table td { font-size: 12px; padding: 6px 7px; }
+}

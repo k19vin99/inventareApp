@@ -11,7 +11,7 @@ const faqItems = [
 export default function Landing() {
   return (
     <>
-      <PublicHeader />
+      
 
       {/* HERO */}
       <section className="section hero-landing">
@@ -104,7 +104,7 @@ export default function Landing() {
             </p>
             <ul className="list">
               <li>+5 años construyendo soluciones tecnologicas para empresas</li>
-              <li>Enfoque en usabilidad y seguridad</li>
+              <li>Enfoque en procesos y </li>
               <li>Implementaciones rápidas y acompañamiento</li>
             </ul>
           </div>
